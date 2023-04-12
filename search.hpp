@@ -6,7 +6,7 @@
 #include "search_keywords.hpp"
 
 std::vector<std::filesystem::path> res{};
-void search(std::filesystem::path pth, std::string keyword)
+void search(const std::filesystem::path& pth, const std::string& keyword)
     {
         if(exists(pth))
         {
