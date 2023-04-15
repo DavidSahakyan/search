@@ -19,6 +19,9 @@ set(PROJECT_SOURCES
         mainwindow.ui
         search.hpp
         search_keywords.hpp
+        execute_search_keywords.hpp
+        external_mutex.hpp
+        main_func.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

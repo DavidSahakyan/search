@@ -6,10 +6,11 @@
 #include <fstream>
 #include <filesystem>
 #include <string>
+#include <thread>
 
-bool keyword_exists(const std::filesystem::path& pth,const std::string& keyword)
+bool search_keywords(const std::filesystem::path& pth, const std::string& keyword)
 {
-    std::ifstream file;
+    std::fstream file;
     file.open(pth);
     if(!file.is_open())
     {
@@ -22,10 +23,13 @@ bool keyword_exists(const std::filesystem::path& pth,const std::string& keyword)
         {
             if(line.find(keyword)  != std::string::npos )
             {
+                file.close();
                 return true;
             }
         }
+        file.close();
         return false;
     }
 }
+
 #endif // SEARCH_KEYWORDS_HPP

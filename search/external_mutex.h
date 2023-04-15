@@ -1,0 +1,5 @@
+
+#ifndef EXTERNAL_MUTEX_H
+#define EXTERNAL_MUTEX_H
+
+#endif // EXTERNAL_MUTEX_H

@@ -1,8 +1,9 @@
-
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "search.hpp"
 #include <QString>
+#include "execute_search_keywords.hpp"
+#include "main_func.hpp"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,15 +22,14 @@ MainWindow::~MainWindow()
 void MainWindow::on_search_clicked()
 {
     ui -> result->clear();
-    res.clear();
     auto Qpath = ui -> path -> text();
     std::string pth = Qpath.toStdString();
     auto Qkeyword = ui -> keyword -> text();
     std::string keyword = Qkeyword.toStdString();
-    search(pth, keyword);
+    std::vector<std::filesystem::path> res = main_func(pth, keyword);
     for(int i = 0; i < res.size()-1; i++)
     {
-        ui -> result -> append(QString::fromStdString(res[i]));
+        ui -> result -> append(QString::fromStdString(res[i].u8string()));
     }
+    res.clear();
 }
-
