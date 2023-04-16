@@ -19,8 +19,10 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_search_clicked()
-{
+{    
     ui -> search ->setEnabled(false);
+
+    checkbox = ui -> checkbox -> isChecked();
 
     ui -> result -> clear();
 

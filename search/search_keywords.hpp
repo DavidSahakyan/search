@@ -7,6 +7,9 @@
 #include <filesystem>
 #include <string>
 #include <thread>
+#include <algorithm>
+
+bool checkbox = true;
 
 bool search_keywords(const std::filesystem::path& pth, const std::string& keyword)
 {
@@ -19,12 +22,29 @@ bool search_keywords(const std::filesystem::path& pth, const std::string& keywor
     else
     {
         std::string line;
-        while(getline(file, line))
+        if(!checkbox)
         {
-            if(line.find(keyword)  != std::string::npos )
+            while(getline(file, line))
             {
-                file.close();
-                return true;
+                if(line.find(keyword)  != std::string::npos )
+                {
+                    file.close();
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            while(getline(file, line))
+            {
+                std::string keyword_copy = keyword;
+                std::for_each(line.begin(), line.end(), [](char& c){c = tolower(c);});
+                std::for_each(keyword_copy.begin(), keyword_copy.end(), [](char& c){c = tolower(c);});
+                if(line.find(keyword_copy)  != std::string::npos )
+                {
+                    file.close();
+                    return true;
+                }
             }
         }
         file.close();
