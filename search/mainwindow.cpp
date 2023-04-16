@@ -18,18 +18,21 @@ MainWindow::~MainWindow()
 }
 
 
-
 void MainWindow::on_search_clicked()
 {
-    ui -> result->clear();
+    ui -> search ->setEnabled(false);
+
+    ui -> result -> clear();
+
     auto Qpath = ui -> path -> text();
     std::string pth = Qpath.toStdString();
     auto Qkeyword = ui -> keyword -> text();
     std::string keyword = Qkeyword.toStdString();
     std::vector<std::filesystem::path> res = main_func(pth, keyword);
-    for(int i = 0; i < res.size()-1; i++)
+    for(int i = 0; i < res.size(); i++)
     {
         ui -> result -> append(QString::fromStdString(res[i].u8string()));
     }
-    res.clear();
+
+    ui -> search -> setEnabled(true);
 }

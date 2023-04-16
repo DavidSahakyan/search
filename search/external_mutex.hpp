@@ -6,5 +6,6 @@
 #include <thread>
 
 std::mutex queue_mutex;
+std::mutex res_mutex;
 
 #endif // EXTERNAL_MUTEX_HPP

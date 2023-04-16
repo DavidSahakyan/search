@@ -1,7 +1,6 @@
 
 #ifndef EXECUTE_SEARCH_KEYWORDS_HPP
 #define EXECUTE_SEARCH_KEYWORDS_HPP
-
 #include <iostream>
 #include <queue>
 #include <filesystem>
@@ -18,34 +17,35 @@ void execute_search_keyword(std::queue<std::filesystem::path>& files_queue,
 {
     while(true)
     {
+        queue_mutex.lock();
         if(files_queue.empty() && done == true)
         {
+            queue_mutex.unlock();
             break;
         }
 
         if(files_queue.empty())
         {
+            queue_mutex.unlock();
             std::this_thread::sleep_for (std::chrono::milliseconds(1));
         }
-
-        queue_mutex.lock();
-        if(!files_queue.empty())
+        else
         {
             queue_top = files_queue.front();
             files_queue.pop();
             queue_mutex.unlock();
-            if(search_keywords(queue_top, keyword) == true)
+
+            auto local_copy = queue_top;
+
+            if(search_keywords(local_copy, keyword) == true)
             {
-                queue_mutex.lock();
-                res.push_back(queue_top);
-                queue_mutex.unlock();
+                res_mutex.lock();
+                res.push_back(local_copy);
+                res_mutex.unlock();
             }
-        }
-        else
-        {
-            queue_mutex.unlock();
         }
     }
     return;
 }
+
 #endif // EXECUTE_SEARCH_KEYWORDS_HPP
