@@ -19,6 +19,7 @@ std::vector<std::filesystem::path> main_func(const std::filesystem::path& pth, c
     w2.join();
     w3.join();
 
+    done = false;
     return res;
 }
 

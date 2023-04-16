@@ -25,7 +25,6 @@ void MainWindow::on_search_clicked()
     checkbox = ui -> checkbox -> isChecked();
 
     ui -> result -> clear();
-
     auto Qpath = ui -> path -> text();
     std::string pth = Qpath.toStdString();
     auto Qkeyword = ui -> keyword -> text();
