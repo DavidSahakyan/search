@@ -22,6 +22,7 @@ set(PROJECT_SOURCES
         execute_search_keywords.hpp
         external_mutex.hpp
         main_func.hpp
+        open_for_dif_OS.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

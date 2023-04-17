@@ -4,6 +4,8 @@
 #include <QString>
 #include "execute_search_keywords.hpp"
 #include "main_func.hpp"
+#include "open_for_dif_OS.hpp"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -32,8 +34,17 @@ void MainWindow::on_search_clicked()
     std::vector<std::filesystem::path> res = main_func(pth, keyword);
     for(int i = 0; i < res.size(); i++)
     {
-        ui -> result -> append(QString::fromStdString(res[i].u8string()));
+        ui -> result -> addItem(QString::fromStdString(res[i].u8string()));
     }
 
     ui -> search -> setEnabled(true);
 }
+
+
+
+void MainWindow::on_result_itemDoubleClicked(QListWidgetItem *item)
+{
+    std::filesystem::path p = (item -> text()).toStdString();
+    openf(p);
+}
+
