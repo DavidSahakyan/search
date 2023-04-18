@@ -24,7 +24,8 @@ void MainWindow::on_search_clicked()
 {    
     ui -> search ->setEnabled(false);
 
-    checkbox = ui -> checkbox -> isChecked();
+    KI_checkbox = ui -> checkbox -> isChecked();
+    regexp_checkbox = ui -> regexp_checkbox -> isChecked();
 
     ui -> result -> clear();
     auto Qpath = ui -> path -> text();

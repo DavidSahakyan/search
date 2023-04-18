@@ -2,14 +2,17 @@
 #ifndef SEARCH_KEYWORDS_HPP
 #define SEARCH_KEYWORDS_HPP
 
+#pragma once
 #include <iostream>
-#include <fstream>
-#include <filesystem>
 #include <string>
-#include <thread>
+#include <regex>
+#include <filesystem>
+#include <fstream>
 #include <algorithm>
 
-bool checkbox = true;
+
+bool KI_checkbox = false;
+bool regexp_checkbox = false;
 
 bool search_keywords(const std::filesystem::path& pth, const std::string& keyword)
 {
@@ -22,11 +25,21 @@ bool search_keywords(const std::filesystem::path& pth, const std::string& keywor
     else
     {
         std::string line;
-        if(!checkbox)
+        if(!KI_checkbox)
         {
             while(getline(file, line))
             {
-                if(line.find(keyword)  != std::string::npos )
+                if(regexp_checkbox)
+                {
+                    std::string keyword_copy = keyword;
+                    if(std::regex_match(line, std::regex(keyword_copy)))
+                    {
+                        file.close();
+                        return true;
+                    }
+                }
+
+                else if(line.find(keyword)  != std::string::npos )
                 {
                     file.close();
                     return true;
@@ -40,7 +53,15 @@ bool search_keywords(const std::filesystem::path& pth, const std::string& keywor
                 std::string keyword_copy = keyword;
                 std::for_each(line.begin(), line.end(), [](char& c){c = tolower(c);});
                 std::for_each(keyword_copy.begin(), keyword_copy.end(), [](char& c){c = tolower(c);});
-                if(line.find(keyword_copy)  != std::string::npos )
+                if(regexp_checkbox)
+                {
+                    if(std::regex_match(line, std::regex(keyword_copy)))
+                    {
+                        file.close();
+                        return true;
+                    }
+                }
+                else if(line.find(keyword_copy)  != std::string::npos )
                 {
                     file.close();
                     return true;
@@ -51,5 +72,6 @@ bool search_keywords(const std::filesystem::path& pth, const std::string& keywor
         return false;
     }
 }
+
 
 #endif // SEARCH_KEYWORDS_HPP
