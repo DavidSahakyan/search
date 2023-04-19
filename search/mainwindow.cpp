@@ -58,6 +58,17 @@ void MainWindow::on_search_clicked()
 
     ui -> result -> clear();
 
+    if(ui -> filter_checkbox ->isChecked())
+    {
+        file_filter_used = true;
+        filter = ui -> filter -> text().toStdString();
+    }
+    else
+    {
+        filter = "";
+        file_filter_used = false;
+    }
+
     std::string pth = Qpath.path().toStdString();
     auto Qkeyword = ui -> keyword -> text();
     std::string keyword = Qkeyword.toStdString();
@@ -77,7 +88,5 @@ void MainWindow::on_result_itemDoubleClicked(QListWidgetItem *item)
     std::filesystem::path p = (item -> text()).toStdString();
     openf(p);
 }
-
-
 
 
