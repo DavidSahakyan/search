@@ -15,6 +15,16 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0" rowspan="6" colspan="2">
+     <widget class="QListView" name="listView"/>
+    </item>
+    <item row="5" column="2">
+     <widget class="QCheckBox" name="filter_checkbox">
+      <property name="text">
+       <string>file name regex</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
@@ -22,17 +32,38 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_2">
+    <item row="9" column="1">
+     <widget class="QCheckBox" name="regexp_checkbox">
       <property name="text">
-       <string>keyword or line</string>
+       <string>using regexp</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0" rowspan="3" colspan="2">
-     <widget class="QListView" name="listView"/>
+    <item row="7" column="0" colspan="3">
+     <widget class="QListWidget" name="result"/>
     </item>
-    <item row="1" column="2">
+    <item row="8" column="0">
+     <widget class="QPushButton" name="search">
+      <property name="text">
+       <string>search</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2">
+     <widget class="QLineEdit" name="filter">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QCheckBox" name="checkbox">
+      <property name="text">
+       <string>key insensitive search</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
      <widget class="QLineEdit" name="keyword">
       <property name="maximumSize">
        <size>
@@ -43,40 +74,9 @@
      </widget>
     </item>
     <item row="2" column="2">
-     <widget class="QCheckBox" name="filter_checkbox">
+     <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>extension filter</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="2">
-     <widget class="QLineEdit" name="filter">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0" colspan="3">
-     <widget class="QListWidget" name="result"/>
-    </item>
-    <item row="5" column="0">
-     <widget class="QPushButton" name="search">
-      <property name="text">
-       <string>search</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QCheckBox" name="checkbox">
-      <property name="text">
-       <string>key insensitive search</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QCheckBox" name="regexp_checkbox">
-      <property name="text">
-       <string>using regexp</string>
+       <string>keyword or line</string>
       </property>
      </widget>
     </item>

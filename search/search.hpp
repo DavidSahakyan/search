@@ -12,6 +12,7 @@
 
 std::string filter;
 bool file_filter_used = false;
+
 bool done = false;
 void search(const std::filesystem::path& pth, const std::string& keyword,
             std::queue<std::filesystem::path>& files_queue)

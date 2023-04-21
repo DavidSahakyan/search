@@ -9,6 +9,8 @@
 #include "search_keywords.hpp"
 #include "external_mutex.hpp"
 
+res_mutex
+
 std::filesystem::path queue_top;
 
 void execute_search_keyword(std::queue<std::filesystem::path>& files_queue,
