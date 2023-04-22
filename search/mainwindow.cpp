@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "search.hpp"
 #include <QString>
 #include "execute_search_keywords.hpp"
 #include "main_func.hpp"
 #include "open_for_dif_OS.hpp"
+#include "reset_variables.hpp"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -60,8 +60,11 @@ void MainWindow::on_search_clicked()
 
     if(ui -> filter_checkbox ->isChecked())
     {
-        file_filter_used = true;
         filter = ui -> filter -> text().toStdString();
+        if(filter != "")
+        {
+            file_filter_used = true;
+        }
     }
     else
     {
@@ -72,11 +75,13 @@ void MainWindow::on_search_clicked()
     std::string pth = Qpath.path().toStdString();
     auto Qkeyword = ui -> keyword -> text();
     std::string keyword = Qkeyword.toStdString();
-    std::vector<std::filesystem::path> res = main_func(pth, keyword);
+    main_func(pth, keyword);
     for(int i = 0; i < res.size(); i++)
     {
         ui -> result -> addItem(QString::fromStdString(res[i].u8string()));
     }
+
+    reset_variables();
 
     ui -> search -> setEnabled(true);
 }

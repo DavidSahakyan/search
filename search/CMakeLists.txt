@@ -23,6 +23,8 @@ set(PROJECT_SOURCES
         external_mutex.hpp
         main_func.hpp
         open_for_dif_OS.hpp
+        globals.hpp
+        reset_variables.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

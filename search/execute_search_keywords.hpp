@@ -2,16 +2,13 @@
 #ifndef EXECUTE_SEARCH_KEYWORDS_HPP
 #define EXECUTE_SEARCH_KEYWORDS_HPP
 #include <iostream>
-#include <queue>
 #include <filesystem>
-#include <vector>
 #include <chrono>
 #include "search_keywords.hpp"
 #include "external_mutex.hpp"
+#include "globals.hpp"
 
-void execute_search_keyword(std::queue<std::filesystem::path>& files_queue,
-                            const std::string& keyword, bool& done,
-                            std::vector<std::filesystem::path>& res)
+void execute_search_keyword(const std::string& keyword)
 {
     std::filesystem::path current_file;
     while(true)
@@ -42,7 +39,6 @@ void execute_search_keyword(std::queue<std::filesystem::path>& files_queue,
             }
         }
     }
-    return;
 }
 
 #endif // EXECUTE_SEARCH_KEYWORDS_HPP
