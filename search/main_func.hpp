@@ -11,7 +11,7 @@ std::vector<std::filesystem::path> main_func(const std::filesystem::path& pth, c
     std::vector<std::filesystem::path> res = {};
     std::vector<std::thread> threads;
     const int thread_num = std::thread::hardware_concurrency();
-    std::thread queue_filler(search_with_flag, pth, keyword, std::ref(files_queue));
+    std::thread queue_filler(search, pth, keyword, std::ref(files_queue));
     for(int i = 0; i < thread_num; i++)
     {
         threads.push_back(std::thread(execute_search_keyword, std::ref(files_queue), keyword, std::ref(done), std::ref(res)));

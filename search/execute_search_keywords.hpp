@@ -9,18 +9,15 @@
 #include "search_keywords.hpp"
 #include "external_mutex.hpp"
 
-res_mutex
-
-std::filesystem::path queue_top;
-
 void execute_search_keyword(std::queue<std::filesystem::path>& files_queue,
                             const std::string& keyword, bool& done,
                             std::vector<std::filesystem::path>& res)
 {
+    std::filesystem::path current_file;
     while(true)
     {
         queue_mutex.lock();
-        if(files_queue.empty() && done == true)
+        if(files_queue.empty() && done)
         {
             queue_mutex.unlock();
             break;
@@ -33,16 +30,14 @@ void execute_search_keyword(std::queue<std::filesystem::path>& files_queue,
         }
         else
         {
-            queue_top = files_queue.front();
+            current_file = files_queue.front();
             files_queue.pop();
             queue_mutex.unlock();
 
-            auto local_copy = queue_top;
-
-            if(search_keywords(local_copy, keyword) == true)
+            if(search_keywords(current_file, keyword) == true)
             {
                 res_mutex.lock();
-                res.push_back(local_copy);
+                res.push_back(current_file);
                 res_mutex.unlock();
             }
         }

@@ -14,12 +14,13 @@ std::string filter;
 bool file_filter_used = false;
 
 bool done = false;
-void search(const std::filesystem::path& pth, const std::string& keyword,
+void inner_search(const std::filesystem::path& pth,
+            const std::string& keyword,
             std::queue<std::filesystem::path>& files_queue)
 {
     if(exists(pth))
     {
-        if(is_regular_file(pth) == true && !file_filter_used)
+        if(is_regular_file(pth) && !file_filter_used)
         {
             queue_mutex.lock();
             files_queue.push(pth);
@@ -35,29 +36,22 @@ void search(const std::filesystem::path& pth, const std::string& keyword,
                 queue_mutex.unlock();
             }
         }
-        else if(is_directory(pth) == true)
+        else if(is_directory(pth))
         {
             for(auto const& direct_ent:std::filesystem::directory_iterator{pth})
             {
-                search(direct_ent.path(), keyword, files_queue);
+                inner_search(direct_ent.path(), keyword, files_queue);
             }
             return;
         }
-        else
-        {
-            return;
-        }
-    }
-    else
-    {
-        return;
     }
 }
 
-void search_with_flag(const std::filesystem::path& pth, const std::string& keyword,
-                      std::queue<std::filesystem::path>& files_queue)
+void search(const std::filesystem::path& pth,
+            const std::string& keyword,
+            std::queue<std::filesystem::path>& files_queue)
 {
-    search(pth, keyword, files_queue);
+    inner_search(pth, keyword, files_queue);
     done = true;
     return;
 }
