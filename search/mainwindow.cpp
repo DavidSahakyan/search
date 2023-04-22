@@ -75,7 +75,7 @@ void MainWindow::on_search_clicked()
     std::string pth = Qpath.path().toStdString();
     auto Qkeyword = ui -> keyword -> text();
     std::string keyword = Qkeyword.toStdString();
-    main_func(pth, keyword);
+    main_func(pth, keyword);  
     for(int i = 0; i < res.size(); i++)
     {
         ui -> result -> addItem(QString::fromStdString(res[i].u8string()));
