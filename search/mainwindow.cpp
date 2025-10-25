@@ -75,6 +75,13 @@ void MainWindow::on_search_clicked()
     std::string pth = Qpath.path().toStdString();
     auto Qkeyword = ui -> keyword -> text();
     std::string keyword = Qkeyword.toStdString();
+
+    if(keyword.empty())
+    {
+        ui -> search -> setEnabled(true);
+        return;
+    }
+
     main_func(pth, keyword);  
     for(int i = 0; i < res.size(); i++)
     {
